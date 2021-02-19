@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Lucy's GEOM99 Weekly Work Week 4</title>
+        <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/css/main.css">
+        <script src="https://js.arcgis.com/4.18/"></script>
+        <style>
+            html,
+            body,
+            #viewDiv {
+              padding: 0;
+              margin: 0;
+              height: 100%;
+              width: 100%;
+            }
+        </style>      
+        <script>
+            require(["esri/config","esri/Map", "esri/views/MapView", "esri/Graphic", "esri/layers/GraphicsLayer"], function (esriConfig,Map, MapView, Graphic, GraphicsLayer) {
+                esriConfig.apiKey = "AAPK8ee4bf84080b48018491c74a6cc017a18OCXSwMQ3jMwjR8Gvjb-drm1E645WzUoNMOcr9pJA67zTFghAdGq89uoGs36xv_j";
+                const map = new Map ({
+                    basemap: "arcgis-topographic"
+                });
+                const view = new MapView({
+                    map: map,
+                    center: [ 119.37805545215743, 26.05431047290177], //long lat
+                    zoom: 13,
+                    container: "viewDiv" // div elemetn
+                });
+                const graphicsLayer = new GraphicsLayer();
+                map.add(graphicsLayer);
+                const point = {
+                    type: "point",
+                    longitude: 119.38351,
+                    latitude: 26.05360
+                };
+                const simpleMarkerSymbol = {
+                    type: "simple-marker",
+                    color: "pink",
+                    size: 17,
+                    outline: {
+                        color: [255,255,255], // white
+                        width: 1
+                    }
+                };
+                const pointGraphic = new Graphic ({
+                    geometry: point,
+                    symbol: simpleMarkerSymbol
+                });
+                // // Create a line geometry
+                // const polyline = {
+                //     type: "polyline",
+                //     paths: [
+                //         [-118.821527826096, 34.0139576938577], //Longitude, latitude
+                //         [-118.814893761649, 34.0080602407843], //Longitude, latitude
+                //         [-118.808878330345, 34.0016642996246]  //Longitude, latitude
+                //     ]
+                // };
+                // const simpleLineSymbol = {
+                //     type: "simple-line",
+                //     color: [226, 119, 40], // Orange
+                //     width: 2
+                // };
+                // const polylineGraphic = new Graphic({
+                //     geometry: polyline,
+                //     symbol: simpleLineSymbol
+                // });
+                // graphicsLayer.add(polylineGraphic);
+
+                // Create a polygon geometry
+                const polygon = {
+                    type: "polygon",
+                    rings: [
+                        [119.37473187488506, 26.05812832988437], //Longitude, latitude
+                        [119.38076082271431, 26.05961218303296], //Longitude, latitude
+                        [119.38811118376641, 26.054863786812053], //Longitude, latitude
+                        [ 119.39430530824852, 26.059537990821823],   //Longitude, latitudeA
+                        [119.40149049264778, 26.05797994353595],   //Longitude, latitudeA
+                        [119.38935000866284, 26.039059144996706],   //Longitude, latitudeA
+
+                    ]
+                };
+
+                const simpleFillSymbol = {
+                    type: "simple-fill",
+                    color: "red",  // Orange, opacity 80%
+                    outline: {
+                        color: [255, 255, 255],
+                        width: 1
+                    }
+                };
+                const popupTemplate = {
+                    title: "{Name}",
+                    content: "{Description}"
+                }
+                const attributes = {
+                    Name: "This is where my parents met",
+                    Description: "They both grew up in the city of FuZhou and met while hiking on this mountain"
+                }
+                const polygonGraphic = new Graphic({
+                    geometry: polygon,
+                    symbol: simpleFillSymbol,
+                    attributes: attributes,
+                    popupTemplate: popupTemplate
+
+                });
+                graphicsLayer.add(polygonGraphic);
+                graphicsLayer.add(pointGraphic);
+
+            });
+        </script>
+    </head>
+    <body>
+        <div id="viewDiv"></div>
+    </body>
+</html>
+
+<!-- ArGIS Dev API KEY AAPK8ee4bf84080b48018491c74a6cc017a18OCXSwMQ3jMwjR8Gvjb-drm1E645WzUoNMOcr9pJA67zTFghAdGq89uoGs36xv_j -->
