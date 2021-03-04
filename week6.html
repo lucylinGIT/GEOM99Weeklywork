@@ -6,9 +6,7 @@
         <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/css/main.css">
         <script src="https://js.arcgis.com/4.18/"></script>
         <style>
-            html,
-            body,
-            #viewDiv {
+            html, body, #viewDiv {
               padding: 0;
               margin: 0;
               height: 100%;
@@ -16,8 +14,9 @@
             }
         </style>      
         <script>
-            require(["esri/config","esri/WebMap", "esri/views/MapView", "esri/Graphic", "esri/layers/GraphicsLayer"], function (esriConfig, WebMap, MapView, Graphic, GraphicsLayer) {
+            require(["esri/config","esri/WebMap", "esri/views/MapView", "esri/widgets/ScaleBar", "esri/widgets/Compass"], function (esriConfig, WebMap, MapView, ScaleBar, Compass) {
                 esriConfig.apiKey = "AAPK8ee4bf84080b48018491c74a6cc017a18OCXSwMQ3jMwjR8Gvjb-drm1E645WzUoNMOcr9pJA67zTFghAdGq89uoGs36xv_j";
+                
                 const webmap = new WebMap({
                     portalItem: {
                         id: "13422a1de62d4567be6766368db3348f"
@@ -27,6 +26,15 @@
                     map: webmap,
                     container: "viewDiv"
                 });
+                const scalebar = new ScaleBar({
+                    view: view,
+                    unit: "metric"
+                });
+                view.ui.add(scalebar, "bottom-right");
+                const compass = new Compass({
+                    ciew: view
+                });
+                view.ui.add(compass, "top-right");
             });
         </script>
     </head>
